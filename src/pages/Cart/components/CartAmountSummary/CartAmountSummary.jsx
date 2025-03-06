@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { useUserData } from "../../../../contexts/UserDataProvider.js";
-import { Link } from "react-router-dom";
 import "./CartAmountSummary.css";
 import {CheckoutModal} from "../../../Checkout/CheckoutModal";
 

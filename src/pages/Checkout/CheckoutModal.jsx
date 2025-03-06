@@ -9,8 +9,7 @@ import {useAuth} from "../../contexts/AuthProvider";
 import {useNavigate} from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { toast } from "react-hot-toast";
-import { IoClose } from "react-icons/io5"; // Import X icon from react-icons
-
+import { IoClose } from "react-icons/io5";
 
 
 export const CheckoutModal = ({ isOpen, onClose }) => {

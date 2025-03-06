@@ -4,7 +4,6 @@ import React from "react";
 import { useAddress } from "../../../../contexts/AddressProvider.js";
 import { useUserData } from "../../../../contexts/UserDataProvider.js";
 import { AddressModal } from "../AddressModal/AddressModal";
-import { motion } from "framer-motion";
 
 export const AddressSection = () => {
   const { userDataState, dispatch } = useUserData();
