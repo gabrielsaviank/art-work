@@ -6,18 +6,10 @@ import { DeliveryAddress } from "../DeliveryAddress/DeliveryAddress";
 import { useUserData } from "../../../../contexts/UserDataProvider.js";
 
 export const OrderSummary = () => {
-  const { userDataState } = useUserData();
-  return (
-    <div className="order-details-container">
-      <CartProductsSummary />
-      <BillingSummary />
-      {userDataState.orderDetails.orderAddress ? (
-        <DeliveryAddress />
-      ) : (
-        <div className="no-address">
-          Please provide/select an address to proceed!
+    return (
+        <div className="order-details-container">
+            <CartProductsSummary />
+            <BillingSummary />
         </div>
-      )}
-    </div>
-  );
+    );
 };

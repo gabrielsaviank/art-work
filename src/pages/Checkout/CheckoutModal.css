@@ -1,0 +1,146 @@
+.checkout-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.checkout-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.checkout-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 60vh;
+    padding-right: 10px;
+}
+
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.step {
+    padding: 8px 12px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    font-size: 14px;
+    flex-grow: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.step.active {
+    background: #000;
+    color: white;
+    font-weight: bold;
+}
+
+.checkout-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* ✅ Previous Button */
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    z-index: 1001;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.place-order-btn {
+    width: 30%;
+    background: black;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+}
+
+.place-order-btn-secondary {
+    width: 15%;
+    background: black;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+}
+
+.place-order-btn-secondary:hover {
+    background-color: #222;
+}
+
+
+.place-order-btn:hover, .back-btn:hover {
+    background-color: #222;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #666;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

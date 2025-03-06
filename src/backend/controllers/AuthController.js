@@ -20,13 +20,14 @@ export const signupHandler = function (schema, request) {
     const foundUser = schema.users.findBy({ email });
     if (foundUser) {
       return new Response(
-        422,
-        {},
-        {
-          errors: ["Sorry!. Email Already Exists."],
-        }
+          409,
+          {},
+          {
+            errors: ["Sorry!. Email Already Exists."],
+          }
       );
     }
+
     const _id = uuid();
     const newUser = {
       _id,
@@ -40,15 +41,26 @@ export const signupHandler = function (schema, request) {
       addressList: [],
     };
     const createdUser = schema.users.create(newUser);
-    const encodedToken = sign({ _id, email }, process.env.REACT_APP_JWT_SECRET);
+    const jwtSecret = process.env.REACT_APP_JWT_SECRET;
+
+    if (!jwtSecret) {
+      return new Response(
+          500,
+          {},
+          { errors: ["Internal Server Error: JWT secret missing"] }
+      );
+    }
+
+    const encodedToken = sign({ _id, email }, jwtSecret);
+
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
     return new Response(
-      500,
-      {},
-      {
-        error,
-      }
+        500,
+        {},
+        {
+          error,
+        }
     );
   }
 };
@@ -61,39 +73,57 @@ export const signupHandler = function (schema, request) {
 
 export const loginHandler = function (schema, request) {
   const { email, password } = JSON.parse(request.requestBody);
+
   try {
     const foundUser = schema.users.findBy({ email });
+
     if (!foundUser) {
       return new Response(
-        404,
-        {},
-        { errors: ["The email you entered is not Registered. Not Found error"] }
+          404,
+          {},
+          { errors: ["The email you entered is not Registered. Not Found error"] }
       );
     }
+
     if (password === foundUser.password) {
+
+      const jwtSecret = process.env.REACT_APP_JWT_SECRET;
+
+      if (!jwtSecret) {
+        return new Response(
+            500,
+            {},
+            { errors: ["Internal Server Error: JWT secret missing"] }
+        );
+      }
+
       const encodedToken = sign(
-        { _id: foundUser._id, email },
-        process.env.REACT_APP_JWT_SECRET
+          {
+            _id: foundUser._id,
+            email
+          },
+          jwtSecret
       );
+
       foundUser.password = undefined;
       return new Response(200, {}, { foundUser, encodedToken });
     }
     return new Response(
-      401,
-      {},
-      {
-        errors: [
-          "The credentials you entered are invalid. Unauthorized access error.",
-        ],
-      }
+        401,
+        {},
+        {
+          errors: [
+            "The credentials you entered are invalid. Unauthorized access error.",
+          ],
+        }
     );
   } catch (error) {
     return new Response(
-      500,
-      {},
-      {
-        error,
-      }
+        500,
+        {},
+        {
+          error,
+        }
     );
   }
 };
